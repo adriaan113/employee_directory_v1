@@ -26,7 +26,6 @@
 ///////////////++++ VARIABLES ++++///////////////
 
 let html=  document.querySelector('.grid');
-//let name;
 
 
 
@@ -58,7 +57,7 @@ let html=  document.querySelector('.grid');
 // })
 
 
-fetch('https://randomuser.me/api/?results=12')
+fetch('https://randomuser.me/api/?results=12&nat=us')
 .then(response=> {
   return response.json();
 })
