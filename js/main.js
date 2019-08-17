@@ -66,7 +66,7 @@ fetch('https://randomuser.me/api/?results=12')
 
   for(let i=0;i<12;i++){ //make forEach or i<results.length
 
-    const profileImg= `${data.results[i].picture.medium}`;
+    const profileImg= `${data.results[i].picture.large}`;
 
     const firstName= data.results[i].name.first;
     const lastName= data.results[i].name.last;
@@ -79,10 +79,14 @@ fetch('https://randomuser.me/api/?results=12')
 
     html.innerHTML+=
           `<a class="grid-item">
-              <img src="${profileImg}">
-              <h3>${fullName}</h3>
-              <p>${email}</p>
-              <p>${city}</p>
+              <div class="img-container">
+                <img src="${profileImg}">
+              </div>
+              <div class="text-container">
+                <h3>${fullName}</h3>
+                <p>${email}</p>
+                <p>${city}</p>
+              </div>
           </a>`
   }
 })
