@@ -26,8 +26,8 @@
 ///////////////++++ VARIABLES ++++///////////////
 
 let html=  document.querySelector('.grid');
-let person;
-let results;
+//let name;
+
 
 
 ///////////////++++ FUNCTIONS ++++///////////////
@@ -68,14 +68,15 @@ fetch('https://randomuser.me/api/?results=12')
 .then(function(data){
 
   for(let i=0;i<12;i++){
-    person= JSON.stringify(data.results[i].gender);
+    const firstName= data.results[i].name.first;
+    const lastName= data.results[i].name.last;
+    const fullName= `${firstName.charAt(0).toUpperCase()}${firstName.substr(1).toLowerCase()}
+                    ${lastName.charAt(0).toUpperCase()}${lastName.substr(1).toLowerCase()}`;
     html.innerHTML+=
-          `<a class="grid-item"> ${person} </a>`
+          `<a class="grid-item"> ${fullName} </a>`
   }
 
-
-
-
-
-
-});
+})
+// .catch(Error=>{
+//   console.log(Error);
+// })
