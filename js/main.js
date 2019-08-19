@@ -1,27 +1,3 @@
-//
-// var xhr = new XMLHttpRequest();
-//  xhr.onreadystatechange = function() {
-//    if (xhr.readyState == 4 && xhr.status == 200) {
-//
-//      const mensjes= JSON.parse(xhr.responseText);
-//
-//      document.querySelector('.grid').innerHTML=
-//      `<a class="grid-item"> ${mensjes.results[0].name.first
-//      } </a>`
-//
-//
-//
-//     //console.log(mensjes.results[0].gender);
-//    }
-//  };
-//  xhr.open("GET", 'https://randomuser.me/api/');
-//  xhr.send();
-
-
-
-
-
-
 
 ///////////////++++ VARIABLES ++++///////////////
 
@@ -29,32 +5,8 @@ let html=  document.querySelector('.grid');
 
 
 
-///////////////++++ FUNCTIONS ++++///////////////
-
-
-// let process= (prom)=>{
-//   prom.then(data=>{
-//   person= JSON.stringify(data.results[0].name.first);
-//
-//     html.innerHTML+=
-//           `<a class="grid-item"> ${person} </a>`;
-//   })}
-
-
-
 ///////////////++++ FETCH ++++///////////////
 
-
-// Promise.all([
-//   fetch('https://randomuser.me/api/'),
-//   fetch('https://randomuser.me/api/'),
-//   fetch('https://randomuser.me/api/'),
-//   fetch('https://randomuser.me/api/'),
-// ]).then(response=> {
-//     response.forEach(answer =>{
-//       process(answer.json());
-//     });
-// })
 
 
 fetch('https://randomuser.me/api/?results=12&nat=us')
@@ -65,15 +17,13 @@ fetch('https://randomuser.me/api/?results=12&nat=us')
 
   for(let i=0;i<12;i++){ //make forEach or i<results.length
 
-    const profileImg= `${data.results[i].picture.large}`;
+    const profileImg= data.results[i].picture.large;
 
     const firstName= data.results[i].name.first;
     const lastName= data.results[i].name.last;
-    const fullName= `${firstName.charAt(0).toUpperCase()}${firstName.substr(1).toLowerCase()}
-                     ${lastName.charAt(0).toUpperCase()}${lastName.substr(1).toLowerCase()}`;//i can make a function here
-
-    const email= `${data.results[i].email}`;
-    const city= `${data.results[i].location.city}`
+    const fullName= `${firstName.charAt(0).toUpperCase()}${firstName.substring(1).toLowerCase()} ${lastName.charAt(0).toUpperCase()}${lastName.substring(1).toLowerCase()}`;
+    const email= data.results[i].email;
+    const city= data.results[i].location.city;
 
 
     html.innerHTML+=
@@ -88,7 +38,45 @@ fetch('https://randomuser.me/api/?results=12&nat=us')
               </div>
           </a>`
   }
-})
+
+
+
+})//****capitalize city****
+
 // .catch(Error=>{
 //   console.log(Error); need to give a better error
 // })
+
+
+const input= document.querySelector('.search');
+const filter = input.value.toUpperCase();
+const grid= document.querySelector('.grid');
+const gridItem= grid.children;
+//let txtContent;
+
+
+
+
+function employeeFilter(){
+
+  for(let i=0; i<gridItem.length;i++){
+
+    const txtContent= gridItem[i].children[1].textContent.toUpperCase();
+
+      //console.log(gridItem[i]);
+
+
+        if(txtContent.indexOf(filter) > -1){
+          gridItem[i].style.display = "";
+        }else{
+          gridItem[i].style.display = "none";
+        }
+
+
+  }
+}
+
+
+input.addEventListener( 'keyup',  ()=>{
+  employeeFilter();
+});
