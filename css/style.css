@@ -107,6 +107,26 @@ header{
   margin: 0 0 5px;
 }
 
+/*************** MODAL WINDOW ***************/
+
+.modal{
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content{
+  background-color: lightgrey;
+  width: 80%;
+  margin: auto;
+  border: lightblue;
+}
 
 
 
@@ -116,6 +136,13 @@ header{
   outline: none;
   border: 1px solid lightblue;
 }
+
+.grid-item:hover{
+  border: 3px solid lightblue;
+}
+
+
+
 
 
 /*************** MEDIA QUERIES ***************/
