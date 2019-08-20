@@ -73,6 +73,7 @@ header{
   height: 150px;
   border-radius: 5px;
   border: 3px solid lightgrey;
+  cursor:pointer;
 }
 
 .img-container{
@@ -163,6 +164,13 @@ header{
   display: none;
   float: right;
   padding-top: 15px;
+  font-size: 1.5em;
+  font-weight: bold;
+  z-index: 2;
+  cursor:pointer;
+}
+
+.modal-next{ /*hier was ik gebleven*/
   font-size: 1.5em;
   font-weight: bold;
   z-index: 2;

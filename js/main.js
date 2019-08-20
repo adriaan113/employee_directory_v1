@@ -101,7 +101,6 @@ input.addEventListener( 'keyup',  ()=>{
 grid.addEventListener('click', (e)=>{
   modal.style.display= "block";
 
-
   if(e.target.tagName==='DIV'){
     modalContent.innerHTML= e.target.parentNode.innerHTML;
     modalContent.children[3].style.display= "block";
@@ -109,7 +108,6 @@ grid.addEventListener('click', (e)=>{
 
    }else if(e.target.tagName === 'MAIN'){
      modal.style.display = "none";
-
 
    }else if(e.target.tagName==='IMG' || e.target.tagName==='H3' || e.target.tagName==='P'){
     modalContent.innerHTML= e.target.parentNode.parentNode.innerHTML;
@@ -122,8 +120,11 @@ grid.addEventListener('click', (e)=>{
       modalContent.children[0].style.display= "block";
     }
 
+  // modalContent.children[0].style.cursor = "pointer";
+
   modalContent.children[0].addEventListener('click', (e)=>{ //can this be a callback function instead????
     modal.style.display= 'none';
+
   });
 
 });
