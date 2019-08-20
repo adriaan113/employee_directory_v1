@@ -43,6 +43,7 @@ fetch('https://randomuser.me/api/?results=12&nat=us')
 
     html.innerHTML+=
           `<a class="grid-item">
+              <span class="modal-close">x</span>
               <div class="img-container">
                 <img src="${profileImg}">
               </div>
@@ -66,6 +67,9 @@ fetch('https://randomuser.me/api/?results=12&nat=us')
 // .catch(Error=>{
 //   console.log(Error); need to give a better error
 // })
+
+
+
 
 
 const input= document.querySelector('.search');
@@ -93,26 +97,39 @@ input.addEventListener( 'keyup',  ()=>{
 
 
 
+
+
+
 grid.addEventListener('click', (e)=>{
   modal.style.display= "block";
 
 
-  modalContent= document.createElement('div');
-  modalContent.classList.add('modal-content');
+  // modalContent= document.createElement('div');
+  // modalContent.classList.add('modal-content');
 
-  modalClose= document.createElement('span');
-  modalClose.classList.add('modal-close');
-  modalClose.innerHTML= "<h3>x</h3>";
+  // modalClose= document.createElement('span');
+  // modalClose.classList.add('modal-close');
+  // modalClose.innerHTML= "<h3>x</h3>";
 
-  modal.appendChild(modalContent);
-  modal.appendChild(modalClose);
+  //modal.appendChild(modalContent);
+  // modalContent.appendChild(modalClose);
+
+
+  modalContent= document.querySelector('.modal-content');
+  // modalClose= document.querySelector('.modal-close');
+
+  //modalClose.style.display="block";
+  // modalClose.innerHTML="<h3>x</h3>";
+
+//  modalContent.appendChild(modalClose);
 
 
   if(e.target.tagName==='DIV'){
     modalContent.innerHTML= e.target.parentNode.innerHTML;
-    modalContent.children[2].style.display= "block";
-  }
-   else if(e.target.tagName === 'MAIN'){
+    modalContent.children[3].style.display= "block";
+    modalContent.children[0].style.display= "block";
+
+   }else if(e.target.tagName === 'MAIN'){
      modal.style.display = "none";
 
      while (modal.firstChild){
@@ -121,20 +138,23 @@ grid.addEventListener('click', (e)=>{
 
    }else if(e.target.tagName==='IMG' || e.target.tagName==='H3' || e.target.tagName==='P'){
     modalContent.innerHTML= e.target.parentNode.parentNode.innerHTML;
-    modalContent.children[2].style.display= "block";
+    modalContent.children[3].style.display= "block";
+    modalContent.children[0].style.display= "block";
+
   }else{
     modalContent.innerHTML= e.target.innerHTML;
-    modalContent.children[2].style.display= "block";
+    modalContent.children[3].style.display= "block";
+    modalContent.children[0].style.display= "block";
   }
 
 
-  modalClose.addEventListener('click', (e)=>{ //can this be a callback function instead????
+  modalContent.children[0].addEventListener('click', (e)=>{ //can this be a callback function instead????
     modal.style.display= 'none';
 
 
-    while (modal.firstChild){
-      modal.removeChild(modal.firstChild);
-    }
+    // while (modal.firstChild){
+    //   modal.removeChild(modal.firstChild);
+    // }
 
   });
 

@@ -160,7 +160,8 @@ header{
 }
 
 .modal-close{
-  float: right;
+  display: none;
+  /* float: right; */
   z-index: 2;
 }
 
