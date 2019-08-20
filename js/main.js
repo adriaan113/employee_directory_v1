@@ -7,7 +7,7 @@ let html=  document.querySelector('.grid');
 // modal.classList.add('modal');
 
 const modal= document.querySelector('.modal');
-let modalContent;
+const modalContent= document.querySelector('.modal-content');
 let modalClose;
 
 
@@ -81,7 +81,7 @@ function employeeFilter(){
 
   for(let i=0; i<gridItem.length;i++){
 
-    const txtContent= gridItem[i].children[1].textContent.toUpperCase();
+    const txtContent= gridItem[i].children[2].textContent.toUpperCase();
 
       if(txtContent.indexOf(input.value.toUpperCase()) > -1){
         gridItem[i].style.display = "";
@@ -98,30 +98,8 @@ input.addEventListener( 'keyup',  ()=>{
 
 
 
-
-
 grid.addEventListener('click', (e)=>{
   modal.style.display= "block";
-
-
-  // modalContent= document.createElement('div');
-  // modalContent.classList.add('modal-content');
-
-  // modalClose= document.createElement('span');
-  // modalClose.classList.add('modal-close');
-  // modalClose.innerHTML= "<h3>x</h3>";
-
-  //modal.appendChild(modalContent);
-  // modalContent.appendChild(modalClose);
-
-
-  modalContent= document.querySelector('.modal-content');
-  // modalClose= document.querySelector('.modal-close');
-
-  //modalClose.style.display="block";
-  // modalClose.innerHTML="<h3>x</h3>";
-
-//  modalContent.appendChild(modalClose);
 
 
   if(e.target.tagName==='DIV'){
@@ -132,30 +110,20 @@ grid.addEventListener('click', (e)=>{
    }else if(e.target.tagName === 'MAIN'){
      modal.style.display = "none";
 
-     while (modal.firstChild){
-       modal.removeChild(modal.firstChild);
-     }
 
    }else if(e.target.tagName==='IMG' || e.target.tagName==='H3' || e.target.tagName==='P'){
     modalContent.innerHTML= e.target.parentNode.parentNode.innerHTML;
     modalContent.children[3].style.display= "block";
     modalContent.children[0].style.display= "block";
 
-  }else{
-    modalContent.innerHTML= e.target.innerHTML;
-    modalContent.children[3].style.display= "block";
-    modalContent.children[0].style.display= "block";
-  }
-
+    }else{
+      modalContent.innerHTML= e.target.innerHTML;
+      modalContent.children[3].style.display= "block";
+      modalContent.children[0].style.display= "block";
+    }
 
   modalContent.children[0].addEventListener('click', (e)=>{ //can this be a callback function instead????
     modal.style.display= 'none';
-
-
-    // while (modal.firstChild){
-    //   modal.removeChild(modal.firstChild);
-    // }
-
   });
 
 });
