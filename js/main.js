@@ -7,6 +7,8 @@ let html=  document.querySelector('.grid');
 // modal.classList.add('modal');
 
 const modal= document.querySelector('.modal');
+let modalContent;
+let modalClose;
 
 
 ///////////////++++ FETCH ++++///////////////
@@ -55,23 +57,6 @@ fetch('https://randomuser.me/api/?results=12&nat=us')
                 <p>${dob}</p>
               </div>
           </a>`
-
-
-    // modal.innerHTML+= `<div class="modal-content">
-    //                       <div class="img-container-modal">
-    //                         <img src="${profileImg}">
-    //                       </div>
-    //                       <div class="text-container-modal">
-    //                         <h3>${fullName}</h3>
-    //                         <p>${email}</p>
-    //                         <p>${city}</p>
-    //                       </div>
-    //                       <div class="text-container-modal-extra">
-    //                         <p>${cell}</p>
-    //                         <p>${street} ${postcode} ${state}</p>
-    //                         <p>${dob}</p>
-    //                       </div>
-    //                   </div>`;
   }
 
 
@@ -115,14 +100,26 @@ grid.addEventListener('click', (e)=>{
   modalContent= document.createElement('div');
   modalContent.classList.add('modal-content');
 
+  modalClose= document.createElement('span');
+  modalClose.classList.add('modal-close');
+  modalClose.innerHTML= "<h3>x</h3>";
+
   modal.appendChild(modalContent);
+  modal.appendChild(modalClose);
 
 
   if(e.target.tagName==='DIV'){
     modalContent.innerHTML= e.target.parentNode.innerHTML;
     modalContent.children[2].style.display= "block";
+  }
+   else if(e.target.tagName === 'MAIN'){
+     modal.style.display = "none";
 
-  }else if(e.target.tagName==='IMG' || e.target.tagName==='H3' || e.target.tagName==='P'){
+     while (modal.firstChild){
+       modal.removeChild(modal.firstChild);
+     }
+
+   }else if(e.target.tagName==='IMG' || e.target.tagName==='H3' || e.target.tagName==='P'){
     modalContent.innerHTML= e.target.parentNode.parentNode.innerHTML;
     modalContent.children[2].style.display= "block";
   }else{
@@ -130,6 +127,15 @@ grid.addEventListener('click', (e)=>{
     modalContent.children[2].style.display= "block";
   }
 
-    //console.log(modalContent.children[2]);
-  //console.log(e.target);
+
+  modalClose.addEventListener('click', (e)=>{
+    modal.style.display= 'none';
+
+
+    while (modal.firstChild){
+      modal.removeChild(modal.firstChild);
+    }
+
+  });
+
 });
