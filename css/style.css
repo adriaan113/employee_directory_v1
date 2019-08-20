@@ -122,21 +122,47 @@ header{
 }
 
 .modal-content{
-  background-color: lightgrey;
+  background-color: #f5f5f5;
   width: 80%;
-  margin: auto;
-  border: lightblue;
+  max-width: 630px;
+  padding: 0 20px;
+  margin: 100px auto;
+  border: 3px solid lightblue;
+  border-radius: 5px;
+}
+
+.modal-content .img-container{
+  padding: 36px 0 10px;
+  margin: 0 auto;
+}
+
+.modal-content img{
+  border-radius: 50%;
+}
+
+.modal-content .text-container{
+  margin: 0 auto;
+  align-items: center;
+  padding-bottom: 20px;
+}
+
+.modal-content .text-container p{
+  font-size: 1em;
+  margin: .5em 0;
 }
 
 .text-container-modal{
   display: none;
+  text-align: center;
+  padding: 20px 0;
+  color: grey;
+  border-top: 1px solid grey;
 }
 
 .modal-close{
+  float: right;
   z-index: 2;
 }
-
-
 
 /*************** PSEUDO STYLES ***************/
 

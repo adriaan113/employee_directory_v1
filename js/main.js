@@ -128,7 +128,7 @@ grid.addEventListener('click', (e)=>{
   }
 
 
-  modalClose.addEventListener('click', (e)=>{
+  modalClose.addEventListener('click', (e)=>{ //can this be a callback function instead????
     modal.style.display= 'none';
 
 
