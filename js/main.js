@@ -49,6 +49,11 @@ fetch('https://randomuser.me/api/?results=12&nat=us')
                 <p>${email}</p>
                 <p>${city}</p>
               </div>
+              <div class="text-container-modal">
+                <p>${cell}</p>
+                <p>${street} ${postcode} ${state}</p>
+                <p>${dob}</p>
+              </div>
           </a>`
 
 
@@ -103,39 +108,28 @@ input.addEventListener( 'keyup',  ()=>{
 
 
 
-// function popUp(e){
-//   document.body.appendChild(modal);
-//   e.target.style.display="block";
-// }
-
-
-// grid.addEventListener('click', (e)=>{
-//
-//   document.body.appendChild(modal);
-//   e.target.style.display="block";
-//   // document.body.appendChild(modal);
-//   // e.target.style.display= "block";
-//
-//   //console.log(e.target);
-// });
-
 grid.addEventListener('click', (e)=>{
   modal.style.display= "block";
 
+
   modalContent= document.createElement('div');
   modalContent.classList.add('modal-content');
+
   modal.appendChild(modalContent);
 
 
   if(e.target.tagName==='DIV'){
     modalContent.innerHTML= e.target.parentNode.innerHTML;
-    //console.log('satan');
+    modalContent.children[2].style.display= "block";
+
   }else if(e.target.tagName==='IMG' || e.target.tagName==='H3' || e.target.tagName==='P'){
     modalContent.innerHTML= e.target.parentNode.parentNode.innerHTML;
+    modalContent.children[2].style.display= "block";
   }else{
     modalContent.innerHTML= e.target.innerHTML;
+    modalContent.children[2].style.display= "block";
   }
 
-
+    //console.log(modalContent.children[2]);
   //console.log(e.target);
 });
