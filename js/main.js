@@ -1,18 +1,19 @@
 
 ///////////////++++ VARIABLES ++++///////////////
 
-let html=  document.querySelector('.grid');
+const html=  document.querySelector('.grid');
 
-// const modal = document.createElement("DIV");
-// modal.classList.add('modal');
 
 const modal= document.querySelector('.modal');
 const modalContent= document.querySelector('.modal-content');
-let modalClose;
+//let modalClose;
+
+const input= document.querySelector('.search');
+const gridItem= html.children;
+
 
 
 ///////////////++++ FETCH ++++///////////////
-
 
 
 fetch('https://randomuser.me/api/?results=12&nat=us')
@@ -47,6 +48,8 @@ fetch('https://randomuser.me/api/?results=12&nat=us')
               <div class="img-container">
                 <img src="${profileImg}">
               </div>
+              <span class="modal-prev"><</span>
+              <span class="modal-next">></span>
               <div class="text-container">
                 <h3>${fullName}</h3>
                 <p>${email}</p>
@@ -69,27 +72,42 @@ fetch('https://randomuser.me/api/?results=12&nat=us')
 // })
 
 
-
-
-
-const input= document.querySelector('.search');
-const grid= document.querySelector('.grid');
-const gridItem= grid.children;
-
+///////////////++++ FUNCTIONS ++++///////////////
 
 function employeeFilter(){
 
   for(let i=0; i<gridItem.length;i++){
 
-    const txtContent= gridItem[i].children[2].textContent.toUpperCase();
+    const txtContent= gridItem[i].children[4].textContent.toUpperCase();
 
-      if(txtContent.indexOf(input.value.toUpperCase()) > -1){
-        gridItem[i].style.display = "";
-      }else{
-        gridItem[i].style.display = "none";
-      }
+    if(txtContent.indexOf(input.value.toUpperCase()) > -1){
+      gridItem[i].style.display = "";
+    }else{
+      gridItem[i].style.display = "none";
+    }
   }
 }
+
+
+
+function prevNext(prev){
+  modalContent.innerHTML= prev;
+  modalContent.children[5].style.display= "block";
+  modalContent.children[0].style.display= "block";
+  modalContent.children[2].style.display= "inline";
+  modalContent.children[3].style.display= "inline";
+}
+
+
+
+function close(){
+  modalContent.children[0].addEventListener('click', ()=>{
+    modal.style.display= 'none';
+  });
+}
+
+
+///////////////++++ LISTENERS ++++///////////////
 
 input.addEventListener( 'keyup',  ()=>{
   employeeFilter();
@@ -97,34 +115,53 @@ input.addEventListener( 'keyup',  ()=>{
 
 
 
-
-grid.addEventListener('click', (e)=>{
+html.addEventListener('click', (e)=>{
   modal.style.display= "block";
 
   if(e.target.tagName==='DIV'){
     modalContent.innerHTML= e.target.parentNode.innerHTML;
-    modalContent.children[3].style.display= "block";
+    modalContent.children[5].style.display= "block";
     modalContent.children[0].style.display= "block";
+    modalContent.children[2].style.display= "inline";
+    modalContent.children[3].style.display= "inline";
 
    }else if(e.target.tagName === 'MAIN'){
      modal.style.display = "none";
 
    }else if(e.target.tagName==='IMG' || e.target.tagName==='H3' || e.target.tagName==='P'){
     modalContent.innerHTML= e.target.parentNode.parentNode.innerHTML;
-    modalContent.children[3].style.display= "block";
+    modalContent.children[5].style.display= "block";
     modalContent.children[0].style.display= "block";
+    modalContent.children[2].style.display= "inline";
+    modalContent.children[3].style.display= "inline";
 
     }else{
       modalContent.innerHTML= e.target.innerHTML;
-      modalContent.children[3].style.display= "block";
+      modalContent.children[5].style.display= "block";
       modalContent.children[0].style.display= "block";
+      modalContent.children[2].style.display= "inline";
+      modalContent.children[3].style.display= "inline";
     }
 
-  // modalContent.children[0].style.cursor = "pointer";
+  close();
 
-  modalContent.children[0].addEventListener('click', (e)=>{ //can this be a callback function instead????
-    modal.style.display= 'none';
 
+  const previousEmployee=  e.target.parentNode.previousSibling.innerHTML;
+
+  const nextEmployee= e.target.parentNode.nextSibling.innerHTML;
+
+
+
+  modalContent.children[2].addEventListener('click', ()=>{
+
+    prevNext(previousEmployee);
+    close();
+  });
+
+  modalContent.children[3].addEventListener('click', ()=>{
+
+    prevNext(nextEmployee);
+    close();
   });
 
 });

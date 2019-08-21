@@ -170,10 +170,22 @@ header{
   cursor:pointer;
 }
 
-.modal-next{ /*hier was ik gebleven*/
+.modal-prev{
+  display: none;
+  float: left;
   font-size: 1.5em;
   font-weight: bold;
   z-index: 2;
+  cursor:pointer;
+}
+
+.modal-next{
+  display: none;
+  float: right;
+  font-size: 1.5em;
+  font-weight: bold;
+  z-index: 2;
+  cursor:pointer;
 }
 
 /*************** PSEUDO STYLES ***************/
