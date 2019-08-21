@@ -48,8 +48,8 @@ fetch('https://randomuser.me/api/?results=12&nat=us')
               <div class="img-container">
                 <img src="${profileImg}">
               </div>
-              <span class="modal-prev"><</span>
-              <span class="modal-next">></span>
+              <span class="modal-prev">&lt</span>
+              <span class="modal-next">&gt</span>
               <div class="text-container">
                 <h3>${fullName}</h3>
                 <p>${email}</p>
@@ -75,9 +75,7 @@ fetch('https://randomuser.me/api/?results=12&nat=us')
 ///////////////++++ FUNCTIONS ++++///////////////
 
 function employeeFilter(){
-
   for(let i=0; i<gridItem.length;i++){
-
     const txtContent= gridItem[i].children[4].textContent.toUpperCase();
 
     if(txtContent.indexOf(input.value.toUpperCase()) > -1){
@@ -147,7 +145,8 @@ html.addEventListener('click', (e)=>{
 
 
   const previousEmployee=  e.target.parentNode.previousSibling.innerHTML;
-
+  const best= e.target.parentNode;
+  const test=  best.previousSibling.innerHTML;
   const nextEmployee= e.target.parentNode.nextSibling.innerHTML;
 
 
@@ -155,6 +154,7 @@ html.addEventListener('click', (e)=>{
   modalContent.children[2].addEventListener('click', ()=>{
 
     prevNext(previousEmployee);
+
     close();
   });
 
