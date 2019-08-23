@@ -12,7 +12,6 @@ const input= document.querySelector('.search');
 const gridItem= html.children;
 
 
-
 ///////////////++++ FETCH ++++///////////////
 
 
@@ -88,11 +87,14 @@ function employeeFilter(){
 
 function prevNext(prev) {
 
+
   const previousEmployee = prev.previousElementSibling;
   const nextEmployee = prev.nextElementSibling;
 
   const toLastEmployee= gridItem[11];
   const toFirstEmployee= gridItem[0];
+
+
 
   modalContent.innerHTML = prev.innerHTML;
   modalContent.children[5].style.display = "block";
@@ -105,7 +107,6 @@ function prevNext(prev) {
   modalContent.children[2].addEventListener('click', () => {
 
     if(prev === gridItem[0]){
-      //console.log('satan');
       modalContent.innerHTML = gridItem[11].innerHTML;
       modalContent.children[5].style.display = "block";
       modalContent.children[0].style.display = "block";
@@ -113,6 +114,7 @@ function prevNext(prev) {
       modalContent.children[3].style.display = "inline";
       prevNext(toLastEmployee);
       close();
+
 
     }else{
       prevNext(previousEmployee);
@@ -194,34 +196,55 @@ html.addEventListener('click', (e)=>{
   const nextEmployeeImgH3P = e.target.parentNode.parentNode.nextElementSibling;
   const nextEmployeeA= e.target.nextElementSibling;
 
+  const firstEmployee= gridItem[0];
+  const lastEmployee= gridItem[11];
+
 
   modalContent.children[2].addEventListener('click', ()=>{
 
-    if(e.target.tagName === 'IMG' || e.target.tagName === 'H3' || e.target.tagName === 'P'){
-      prevNext(previousEmployeeImgH3P);
+    if(e.target.parentNode === firstEmployee || e.target.parentNode.parentNode === firstEmployee || e.target === firstEmployee){
+      prevNext(lastEmployee);
       close();
-    }else if(e.target.tagName === 'A'){
-      prevNext(previousEmployeeA);
-      close();
+
     }else{
-      prevNext(previousEmployee);
-      close();
+
+      if(e.target.tagName === 'IMG' || e.target.tagName === 'H3' || e.target.tagName === 'P'){
+        prevNext(previousEmployeeImgH3P);
+        close();
+      }else if(e.target.tagName === 'A'){
+        prevNext(previousEmployeeA);
+        close();
+      }else{
+        prevNext(previousEmployee);
+        close();
+      }
     }
 
   });
 
+
   modalContent.children[3].addEventListener('click', ()=>{
 
-    if(e.target.tagName === 'IMG' || e.target.tagName === 'H3' || e.target.tagName === 'P'){
-      prevNext(nextEmployeeImgH3P);
+    if(e.target.parentNode === lastEmployee || e.target.parentNode.parentNode === lastEmployee || e.target === lastEmployee){
+      prevNext(firstEmployee);
       close();
-    } else if(e.target.tagName === 'A'){
-      prevNext(nextEmployeeA);
-      close();
+
     }else{
-      prevNext(nextEmployee);
-      close();
-    }
+
+      if(e.target.tagName === 'IMG' || e.target.tagName === 'H3' || e.target.tagName === 'P'){
+        prevNext(nextEmployeeImgH3P);
+        close();
+      }else if(e.target.tagName === 'A'){
+        prevNext(nextEmployeeA);
+        close();
+      }else if(e.target.parentNode === lastEmployee){
+        prevNext(firstEmployee);
+        close();
+      }else{
+        prevNext(nextEmployee);
+        close();
+      }
+  }
 
   });
 
