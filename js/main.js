@@ -30,6 +30,7 @@ fetch('https://randomuser.me/api/?results=12&nat=us')
     const fullName= `${firstName.charAt(0).toUpperCase()}${firstName.substring(1).toLowerCase()} ${lastName.charAt(0).toUpperCase()}${lastName.substring(1).toLowerCase()}`;
     const email= data.results[i].email;
     const city= data.results[i].location.city;
+    const capitalizeCity= `${city.charAt(0).toUpperCase()}${city.substring(1).toLowerCase()}`;
 
     //extra modal info
 
@@ -38,6 +39,7 @@ fetch('https://randomuser.me/api/?results=12&nat=us')
     const state = data.results[i].location.state;
     const postcode= data.results[i].location.postcode;
     const dob= data.results[i].dob.date;
+    const partOfDob= dob.substring(0, 10);
 
 
 
@@ -52,12 +54,12 @@ fetch('https://randomuser.me/api/?results=12&nat=us')
               <div class="text-container">
                 <h3>${fullName}</h3>
                 <p>${email}</p>
-                <p>${city}</p>
+                <p>${capitalizeCity}</p>
               </div>
               <div class="text-container-modal">
                 <p>${cell}</p>
                 <p>${street} ${postcode} ${state}</p>
-                <p>${dob}</p>
+                <p>${partOfDob}</p>
               </div>
           </a>`
   }
@@ -82,7 +84,7 @@ function employeeFilter(){
     }else{
       gridItem[i].style.display = "none";
     }
-  }
+  }//modal prev and next buttons don't follow the filter
 }
 
 function prevNext(prev) {
