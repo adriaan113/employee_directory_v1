@@ -2,12 +2,8 @@
 ///////////////++++ VARIABLES ++++///////////////
 
 const html=  document.querySelector('.grid');
-
-
 const modal= document.querySelector('.modal');
 const modalContent= document.querySelector('.modal-content');
-//let modalClose;
-
 const input= document.querySelector('.search');
 const gridItem= html.children;
 
@@ -15,6 +11,7 @@ const gridItem= html.children;
 
 ///////////////++++ FUNCTIONS ++++///////////////
 
+//ABBREVIATE STATE NAME TO TWO LETTERS
 function abbrState(input, to){
 
     var states = [
@@ -89,7 +86,14 @@ function abbrState(input, to){
     }
 }
 
-
+//CAPITALIZE EVERY WORD IN CITY
+function titleCase(str) {
+   const splitStr = str.toLowerCase().split(' ');
+   for (let i = 0; i < splitStr.length; i++) {
+       splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
+   }
+   return splitStr.join(' ');
+}
 
 
 
@@ -103,19 +107,18 @@ fetch('https://randomuser.me/api/?results=12&nat=us')
 })
 .then(function(data){
 
-  for(let i=0;i<12;i++){ //make forEach or i<results.length
+  for(let i=0;i<data.results.length;i++){ //make forEach or i<results.length
 
     const profileImg= data.results[i].picture.large;
-
     const firstName= data.results[i].name.first;
     const lastName= data.results[i].name.last;
     const fullName= `${firstName.charAt(0).toUpperCase()}${firstName.substring(1).toLowerCase()} ${lastName.charAt(0).toUpperCase()}${lastName.substring(1).toLowerCase()}`;
     const email= data.results[i].email;
     const city= data.results[i].location.city;
-    const capitalizeCity= `${city.charAt(0).toUpperCase()}${city.substring(1).toLowerCase()}`;
+    const capitalizeCity= titleCase(city)
+
 
     //extra modal info
-
     const cell = data.results[i].cell;
     const street = data.results[i].location.street;
     const state = data.results[i].location.state;
