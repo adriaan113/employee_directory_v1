@@ -91,22 +91,50 @@ function prevNext(prev) {
   const previousEmployee = prev.previousElementSibling;
   const nextEmployee = prev.nextElementSibling;
 
+  const toLastEmployee= gridItem[11];
+  const toFirstEmployee= gridItem[0];
+
   modalContent.innerHTML = prev.innerHTML;
   modalContent.children[5].style.display = "block";
   modalContent.children[0].style.display = "block";
   modalContent.children[2].style.display = "inline";
   modalContent.children[3].style.display = "inline";
 
+
+
   modalContent.children[2].addEventListener('click', () => {
 
-    prevNext(previousEmployee);
-    close();
+    if(prev === gridItem[0]){
+      //console.log('satan');
+      modalContent.innerHTML = gridItem[11].innerHTML;
+      modalContent.children[5].style.display = "block";
+      modalContent.children[0].style.display = "block";
+      modalContent.children[2].style.display = "inline";
+      modalContent.children[3].style.display = "inline";
+      prevNext(toLastEmployee);
+      close();
+
+    }else{
+      prevNext(previousEmployee);
+      close();
+    }
   });
 
   modalContent.children[3].addEventListener('click', () => {
 
-    prevNext(nextEmployee);
-    close();
+    if(prev === gridItem[11]){
+      //console.log('satan');
+      modalContent.innerHTML = gridItem[0].innerHTML;
+      modalContent.children[5].style.display = "block";
+      modalContent.children[0].style.display = "block";
+      modalContent.children[2].style.display = "inline";
+      modalContent.children[3].style.display = "inline";
+      prevNext(toFirstEmployee);
+      close();
+    }else{
+      prevNext(nextEmployee);
+      close();
+    }
   });
 }
 
@@ -158,21 +186,43 @@ html.addEventListener('click', (e)=>{
   close();
 
 
-  const previousEmployee=  e.target.parentNode.previousElementSibling;;
-  const nextEmployee= e.target.parentNode.nextElementSibling;
+  const previousEmployee=  e.target.parentNode.previousElementSibling;
+  const previousEmployeeImgH3P= e.target.parentNode.parentNode.previousElementSibling;
+  const previousEmployeeA= e.target.previousElementSibling;
 
+  const nextEmployee= e.target.parentNode.nextElementSibling;
+  const nextEmployeeImgH3P = e.target.parentNode.parentNode.nextElementSibling;
+  const nextEmployeeA= e.target.nextElementSibling;
 
 
   modalContent.children[2].addEventListener('click', ()=>{
 
-    prevNext(previousEmployee);
-    close();
+    if(e.target.tagName === 'IMG' || e.target.tagName === 'H3' || e.target.tagName === 'P'){
+      prevNext(previousEmployeeImgH3P);
+      close();
+    }else if(e.target.tagName === 'A'){
+      prevNext(previousEmployeeA);
+      close();
+    }else{
+      prevNext(previousEmployee);
+      close();
+    }
+
   });
 
   modalContent.children[3].addEventListener('click', ()=>{
 
-    prevNext(nextEmployee);
-    close();
+    if(e.target.tagName === 'IMG' || e.target.tagName === 'H3' || e.target.tagName === 'P'){
+      prevNext(nextEmployeeImgH3P);
+      close();
+    } else if(e.target.tagName === 'A'){
+      prevNext(nextEmployeeA);
+      close();
+    }else{
+      prevNext(nextEmployee);
+      close();
+    }
+
   });
 
 });
