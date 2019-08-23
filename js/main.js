@@ -115,7 +115,7 @@ fetch('https://randomuser.me/api/?results=12&nat=us')
     const fullName= `${firstName.charAt(0).toUpperCase()}${firstName.substring(1).toLowerCase()} ${lastName.charAt(0).toUpperCase()}${lastName.substring(1).toLowerCase()}`;
     const email= data.results[i].email;
     const city= data.results[i].location.city;
-    const capitalizeCity= titleCase(city)
+    const capitalizeCity= titleCase(city);
 
 
     //extra modal info
@@ -126,6 +126,7 @@ fetch('https://randomuser.me/api/?results=12&nat=us')
     const dob= data.results[i].dob.date;
     const partOfDob= dob.substring(0, 10);
     const capitalizeState= `${state.charAt(0).toUpperCase()}${state.substring(1).toLowerCase()}`;
+    const capitalizeStreet= titleCase(street);
 
     const stateShort= abbrState(state, 'abbr')
 
@@ -144,7 +145,7 @@ fetch('https://randomuser.me/api/?results=12&nat=us')
               </div>
               <div class="text-container-modal">
                 <p>${cell}</p>
-                <p>${street}, ${stateShort} ${postcode}</p>
+                <p>${capitalizeStreet}, ${stateShort} ${postcode}</p>
                 <p>Birthday: ${partOfDob}</p>
               </div>
           </a>`
@@ -267,7 +268,7 @@ html.addEventListener('click', (e)=>{
     modalContent.children[2].style.display= "inline";
     modalContent.children[3].style.display= "inline";
 
-    }else{
+  }else{
       modalContent.innerHTML= e.target.innerHTML;
       modalContent.children[5].style.display= "block";
       modalContent.children[0].style.display= "block";
