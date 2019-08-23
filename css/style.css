@@ -56,13 +56,15 @@ header{
   padding-left: 10px;
 }
 
+
 .grid{
   display: grid;
-  grid-template-columns: repeat( auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   grid-template-rows: auto;
   grid-gap: 10px;
   margin: 20px;
   width: 80%;
+  max-width: 900px;
 }
 
 .grid-item{
@@ -233,6 +235,7 @@ header{
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    max-width: 900px;
   }
 
   .title{

@@ -86,14 +86,28 @@ function employeeFilter(){
   }
 }
 
+function prevNext(prev) {
 
+  const previousEmployee = prev.previousElementSibling;
+  const nextEmployee = prev.nextElementSibling;
 
-function prevNext(prev){
-  modalContent.innerHTML= prev;
-  modalContent.children[5].style.display= "block";
-  modalContent.children[0].style.display= "block";
-  modalContent.children[2].style.display= "inline";
-  modalContent.children[3].style.display= "inline";
+  modalContent.innerHTML = prev.innerHTML;
+  modalContent.children[5].style.display = "block";
+  modalContent.children[0].style.display = "block";
+  modalContent.children[2].style.display = "inline";
+  modalContent.children[3].style.display = "inline";
+
+  modalContent.children[2].addEventListener('click', () => {
+
+    prevNext(previousEmployee);
+    close();
+  });
+
+  modalContent.children[3].addEventListener('click', () => {
+
+    prevNext(nextEmployee);
+    close();
+  });
 }
 
 
@@ -144,17 +158,14 @@ html.addEventListener('click', (e)=>{
   close();
 
 
-  const previousEmployee=  e.target.parentNode.previousSibling.innerHTML;
-  const best= e.target.parentNode;
-  const test=  best.previousSibling.innerHTML;
-  const nextEmployee= e.target.parentNode.nextSibling.innerHTML;
+  const previousEmployee=  e.target.parentNode.previousElementSibling;;
+  const nextEmployee= e.target.parentNode.nextElementSibling;
 
 
 
   modalContent.children[2].addEventListener('click', ()=>{
 
     prevNext(previousEmployee);
-
     close();
   });
 
