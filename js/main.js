@@ -95,11 +95,74 @@ function titleCase(str) {
    return splitStr.join(' ');
 }
 
+//SEARCH FILTER
+function employeeFilter(){
+  for(let i=0; i<gridItem.length;i++){
+    const txtContent= gridItem[i].children[4].textContent.toUpperCase();
 
+    if(txtContent.indexOf(input.value.toUpperCase()) > -1){
+      gridItem[i].style.display = "";
+    }else{
+      gridItem[i].style.display = "none";
+    }
+  }//modal prev and next buttons don't follow the filter
+}
+
+//MODAL PREVIOUS AND NEXT BUTTONS
+function prevNext(prev) {
+  const previousEmployee = prev.previousElementSibling;
+  const nextEmployee = prev.nextElementSibling;
+  const toLastEmployee= gridItem[11];
+  const toFirstEmployee= gridItem[0];
+
+  modalContent.innerHTML = prev.innerHTML;
+  modalContent.children[5].style.display = "block";
+  modalContent.children[0].style.display = "block";
+  modalContent.children[2].style.display = "inline";
+  modalContent.children[3].style.display = "inline";
+
+  modalContent.children[2].addEventListener('click', () => {
+
+    if(prev === gridItem[0]){
+      modalContent.innerHTML = gridItem[11].innerHTML;
+      modalContent.children[5].style.display = "block";
+      modalContent.children[0].style.display = "block";
+      modalContent.children[2].style.display = "inline";
+      modalContent.children[3].style.display = "inline";
+      prevNext(toLastEmployee);
+      close();
+    }else{
+      prevNext(previousEmployee);
+      close();
+    }
+  });
+
+  modalContent.children[3].addEventListener('click', () => {
+
+    if(prev === gridItem[11]){
+      modalContent.innerHTML = gridItem[0].innerHTML;
+      modalContent.children[5].style.display = "block";
+      modalContent.children[0].style.display = "block";
+      modalContent.children[2].style.display = "inline";
+      modalContent.children[3].style.display = "inline";
+      prevNext(toFirstEmployee);
+      close();
+    }else{
+      prevNext(nextEmployee);
+      close();
+    }
+  });
+}
+
+//MODAL CLOSE BUTTON
+function close(){
+  modalContent.children[0].addEventListener('click', ()=>{
+    modal.style.display= 'none';
+  });
+}
 
 
 ///////////////++++ FETCH ++++///////////////
-
 
 fetch('https://randomuser.me/api/?results=12&nat=us')
 .then(response=> {
@@ -131,28 +194,25 @@ fetch('https://randomuser.me/api/?results=12&nat=us')
     const stateShort= abbrState(state, 'abbr')
 
     html.innerHTML+=
-          `<a class="grid-item">
-              <span class="modal-close">x</span>
-              <div class="img-container">
-                <img src="${profileImg}">
-              </div>
-              <span class="modal-prev">&lt</span>
-              <span class="modal-next">&gt</span>
-              <div class="text-container">
-                <h3>${fullName}</h3>
-                <p>${email}</p>
-                <p>${capitalizeCity}</p>
-              </div>
-              <div class="text-container-modal">
-                <p>${cell}</p>
-                <p>${capitalizeStreet}, ${stateShort} ${postcode}</p>
-                <p>Birthday: ${partOfDob}</p>
-              </div>
-          </a>`
+      `<a class="grid-item">
+          <span class="modal-close">x</span>
+          <div class="img-container">
+            <img src="${profileImg}">
+          </div>
+          <span class="modal-prev">&lt</span>
+          <span class="modal-next">&gt</span>
+          <div class="text-container">
+            <h3>${fullName}</h3>
+            <p>${email}</p>
+            <p>${capitalizeCity}</p>
+          </div>
+          <div class="text-container-modal">
+            <p>${cell}</p>
+            <p>${capitalizeStreet}, ${stateShort} ${postcode}</p>
+            <p>Birthday: ${partOfDob}</p>
+          </div>
+      </a>`
   }
-
-
-
 })
 .catch(Error=>{
   html.innerHTML = `<div>
@@ -162,92 +222,14 @@ fetch('https://randomuser.me/api/?results=12&nat=us')
 })
 
 
-///////////////++++ FUNCTIONS ++++///////////////
-
-function employeeFilter(){
-  for(let i=0; i<gridItem.length;i++){
-    const txtContent= gridItem[i].children[4].textContent.toUpperCase();
-
-    if(txtContent.indexOf(input.value.toUpperCase()) > -1){
-      gridItem[i].style.display = "";
-    }else{
-      gridItem[i].style.display = "none";
-    }
-  }//modal prev and next buttons don't follow the filter
-}
-
-function prevNext(prev) {
-
-
-  const previousEmployee = prev.previousElementSibling;
-  const nextEmployee = prev.nextElementSibling;
-
-  const toLastEmployee= gridItem[11];
-  const toFirstEmployee= gridItem[0];
-
-
-
-  modalContent.innerHTML = prev.innerHTML;
-  modalContent.children[5].style.display = "block";
-  modalContent.children[0].style.display = "block";
-  modalContent.children[2].style.display = "inline";
-  modalContent.children[3].style.display = "inline";
-
-
-
-  modalContent.children[2].addEventListener('click', () => {
-
-    if(prev === gridItem[0]){
-      modalContent.innerHTML = gridItem[11].innerHTML;
-      modalContent.children[5].style.display = "block";
-      modalContent.children[0].style.display = "block";
-      modalContent.children[2].style.display = "inline";
-      modalContent.children[3].style.display = "inline";
-      prevNext(toLastEmployee);
-      close();
-
-
-    }else{
-      prevNext(previousEmployee);
-      close();
-    }
-  });
-
-  modalContent.children[3].addEventListener('click', () => {
-
-    if(prev === gridItem[11]){
-      //console.log('satan');
-      modalContent.innerHTML = gridItem[0].innerHTML;
-      modalContent.children[5].style.display = "block";
-      modalContent.children[0].style.display = "block";
-      modalContent.children[2].style.display = "inline";
-      modalContent.children[3].style.display = "inline";
-      prevNext(toFirstEmployee);
-      close();
-    }else{
-      prevNext(nextEmployee);
-      close();
-    }
-  });
-}
-
-
-
-function close(){
-  modalContent.children[0].addEventListener('click', ()=>{
-    modal.style.display= 'none';
-  });
-}
-
-
 ///////////////++++ LISTENERS ++++///////////////
 
+//SEARCH FIELD
 input.addEventListener( 'keyup',  ()=>{
   employeeFilter();
 });
 
-
-
+//MODAL POP-UP
 html.addEventListener('click', (e)=>{
   modal.style.display= "block";
 
@@ -278,7 +260,6 @@ html.addEventListener('click', (e)=>{
 
   close();
 
-
   const previousEmployee=  e.target.parentNode.previousElementSibling;
   const previousEmployeeImgH3P= e.target.parentNode.parentNode.previousElementSibling;
   const previousEmployeeA= e.target.previousElementSibling;
@@ -290,13 +271,11 @@ html.addEventListener('click', (e)=>{
   const firstEmployee= gridItem[0];
   const lastEmployee= gridItem[11];
 
-
+  //MODAL PREVIOUS BUTTON
   modalContent.children[2].addEventListener('click', ()=>{
-
     if(e.target.parentNode === firstEmployee || e.target.parentNode.parentNode === firstEmployee || e.target === firstEmployee){
       prevNext(lastEmployee);
       close();
-
     }else{
 
       if(e.target.tagName === 'IMG' || e.target.tagName === 'H3' || e.target.tagName === 'P'){
@@ -310,16 +289,13 @@ html.addEventListener('click', (e)=>{
         close();
       }
     }
-
   });
 
-
+  //MODAL NEXT BUTTON
   modalContent.children[3].addEventListener('click', ()=>{
-
     if(e.target.parentNode === lastEmployee || e.target.parentNode.parentNode === lastEmployee || e.target === lastEmployee){
       prevNext(firstEmployee);
       close();
-
     }else{
 
       if(e.target.tagName === 'IMG' || e.target.tagName === 'H3' || e.target.tagName === 'P'){
@@ -335,8 +311,6 @@ html.addEventListener('click', (e)=>{
         prevNext(nextEmployee);
         close();
       }
-  }
-
+    }
   });
-
 });
