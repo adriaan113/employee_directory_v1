@@ -289,7 +289,7 @@ html.addEventListener('click', (e)=>{
         close();
       }
     }
-  });
+  }); 
 
   //MODAL NEXT BUTTON
   modalContent.children[3].addEventListener('click', ()=>{
