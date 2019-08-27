@@ -102,10 +102,11 @@ function employeeFilter(){
 
     if(txtContent.indexOf(input.value.toUpperCase()) > -1){
       gridItem[i].style.display = "";
+
     }else{
       gridItem[i].style.display = "none";
     }
-  }//modal prev and next buttons don't follow the filter
+  }
 }
 
 //MODAL PREVIOUS AND NEXT BUTTONS
@@ -115,11 +116,18 @@ function prevNext(prev) {
   const toLastEmployee= gridItem[11];
   const toFirstEmployee= gridItem[0];
 
+//modal prev and next buttons don't follow the filter. use a conditional statement
+//here to check if the previous item has a .style.display !== 'none'
+//only thing is that i need to rewrite the first and last items so they are
+//not static [0] and [11] but move along with the filter.
+
   modalContent.innerHTML = prev.innerHTML;
   modalContent.children[5].style.display = "block";
   modalContent.children[0].style.display = "block";
   modalContent.children[2].style.display = "inline";
   modalContent.children[3].style.display = "inline";
+
+
 
   modalContent.children[2].addEventListener('click', () => {
 
@@ -271,8 +279,11 @@ html.addEventListener('click', (e)=>{
   const firstEmployee= gridItem[0];
   const lastEmployee= gridItem[11];
 
+
+
   //MODAL PREVIOUS BUTTON
   modalContent.children[2].addEventListener('click', ()=>{
+
     if(e.target.parentNode === firstEmployee || e.target.parentNode.parentNode === firstEmployee || e.target === firstEmployee){
       prevNext(lastEmployee);
       close();
@@ -289,10 +300,11 @@ html.addEventListener('click', (e)=>{
         close();
       }
     }
-  }); 
+  });
 
   //MODAL NEXT BUTTON
   modalContent.children[3].addEventListener('click', ()=>{
+
     if(e.target.parentNode === lastEmployee || e.target.parentNode.parentNode === lastEmployee || e.target === lastEmployee){
       prevNext(firstEmployee);
       close();
